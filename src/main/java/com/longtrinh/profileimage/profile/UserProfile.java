@@ -15,6 +15,10 @@ public class UserProfile {
         this.userImage = userImage;
     }
     
+    public UUID getId() {
+        return id;
+    }
+
     public String getUserName() {
         return userName;
     }
