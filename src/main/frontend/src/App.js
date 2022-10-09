@@ -19,11 +19,12 @@ const UserProfiles = () => {
 
   useEffect ( () => {
       fetchUserProfiles();
-    }, []);
+  }, []);
 
   return userProfiles.map((user, index) => {
       return (
         <div key={index}>
+          {user.id ? <img src={`http://localhost:8080/api/v1/user-profile/${user.id}/image/download`}/> : null}
           <br/>
           <br/>
           <h1> {user.userName} </h1>

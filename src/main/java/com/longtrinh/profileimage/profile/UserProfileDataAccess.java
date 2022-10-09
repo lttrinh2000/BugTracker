@@ -9,14 +9,14 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class UserProfileDataAccess {
     
-    private final ExampleUserProfile userList;
+    private static ExampleUserProfile userList;
 
     @Autowired
     public UserProfileDataAccess(ExampleUserProfile exampleUserList) {
         this.userList = exampleUserList;
     }
 
-    public List<UserProfile> getUserList() {
+    public static List<UserProfile> getUserList() {
         return userList.getUserProfile();
     }
 }

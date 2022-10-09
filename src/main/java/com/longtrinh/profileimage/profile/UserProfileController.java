@@ -28,7 +28,7 @@ public class UserProfileController {
 
     @GetMapping
     public List<UserProfile> getUserProfile() {
-        return service.getuserProfiles();
+        return service.getUserProfiles();
     }
 
     @PostMapping (
@@ -36,10 +36,15 @@ public class UserProfileController {
         consumes = MediaType.MULTIPART_FORM_DATA_VALUE,
         produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public void uploadProfileImage(@PathVariable("id") UUID UserProfileId,
+
+    public void uploadProfileImage(@PathVariable("id") UUID userProfileId,
                                    @RequestParam("image_file") MultipartFile file) {
 
-        service.uploadProfileImage(UserProfileId, file);
+        service.uploadProfileImage(userProfileId, file);
     }
 
+    @GetMapping("{id}/image/download")
+    public byte[] downloadImage(@PathVariable("id") UUID userProfileId) {
+        return service.downloadImage(userProfileId);
+    }
 }
