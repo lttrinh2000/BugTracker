@@ -30,10 +30,9 @@ public class UserProfileService {
 
     public byte[] downloadImage(UUID userProfileId) {
         UserProfile user = getUserProfilesOrThrow(userProfileId);
-        String path = String.format("%s/%s/%s", BucketName.PROFILE_IMAGE.getBucketName(), user.getId(), user.getUserImage());
+        String path = String.format("%s/%s", BucketName.PROFILE_IMAGE.getBucketName(), user.getId(), user.getUserImageLink());
         
-        return user.getUserImage().map(key -> fileStorage.downloadImage(path, key))
-        .orElse(new byte[0]);
+        return user.getUserImageLink().map(key -> fileStorage.downloadImage(path, key)).orElse(new byte[0]);
         
     } 
 
@@ -63,13 +62,13 @@ public class UserProfileService {
 
             try {
                 fileStorage.save(path, fileName, Optional.of(metadata), file.getInputStream());
-                user.setUserImage(fileName);
+                user.setUserImageLink(fileName);
             } catch (IOException e) {
                 throw new IllegalStateException(e);
             }
         }
         else {
-            throw new IllegalStateException("File must be an image but uploaded file type is ["+fileType+"]");
+            throw new IllegalStateException("File type must be an image but uploaded file type is ["+fileType+"]");
         }
         
     }

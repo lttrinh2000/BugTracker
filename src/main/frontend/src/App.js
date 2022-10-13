@@ -51,6 +51,7 @@ function Dropzone( {id} ) {
       }
     ).then( () => {
       console.log("image uploaded successfully.");
+      window.location.reload(false);
     }).catch( err => {
       console.log(err);
     }); 
