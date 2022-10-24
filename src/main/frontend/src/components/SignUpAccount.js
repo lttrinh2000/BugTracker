@@ -1,4 +1,4 @@
-import { userRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { faCheck, faTimes, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -6,8 +6,8 @@ const USER_REGEX = new RegExp("^\\w[\\w.]{2,18}\\w$");
 const PWD_REGEX = new RegExp("^\\w[\\w.]{2,18}\\w$");
 
 const SignUp = () => {
-    const userRef = userRef();
-    const errRef = userRef();
+    const userRef = useRef();
+    const errRef = useRef();
 
     const [userName, setUserName] = useState('');
     const [validName, setValidName] = useState(false);
@@ -33,7 +33,7 @@ const SignUp = () => {
     useEffect( () => {
         const res = USER_REGEX.test(userName);
         console.log(res);
-        console.log(user);
+        console.log(userName);
         setValidName(res);
     }, [userName]);
 
@@ -58,12 +58,11 @@ const SignUp = () => {
             <form>
                 <label htmlFor="username"> 
                     Username:
-                    // Show checkmark icon when valid or nothing when invalid
-                    <span className={validName ? "valid" : "hide"}>
+                    <span className={validName ? "valid" : "hide"} /* Show checkmark icon when valid or nothing when invalid */>
                         <FontAwesomeIcon icon={faCheck}/>
                     </span>
-                    // if username is valid or username is empty then hide the x mark
-                    <span className={validName || !userName ? "hide" : "invalid"}>
+
+                    <span className={validName || !userName ? "hide" : "invalid"} /* If username is valid or username is empty then hide the x mark */>
                         <FontAwesomeIcon icon={faTimes}/>
                     </span>
 
@@ -73,18 +72,19 @@ const SignUp = () => {
                     id="username"
                     ref={userRef}
                     autoComplete="off"
-                    onChange={(e) => setUser(e.target.value)}
+                    onChange={(e) => setUserName(e.target.value)}
                     required
                     // Set to true mean value is invalid and false mean value is valid
                     aria-invalid={validName ? "false" : "true"}
-                    aria-decribedby="uid"
-                    onFocus={() => setUserForcus(true)}
+                    aria-describedby="uid"
+                    onFocus={() => setUserFocus(true)}
                     onBlur={() => setUserFocus(false)}
                 />
 
-                // If userFocus is True and the state of userName exist and the username is invalid 
-                //  then show instruction otherwise hide the instruction
-                <p id="uid" className={userFocus && userName && !validName ? "instruction" : "offscreen"}>
+                <p id="uid" className={userFocus && userName && !validName ? "instruction" : "offscreen"}
+                    // If userFocus is True and the state of userName exist and the username is invalid
+                    //  then show instruction otherwise hide the instruction
+                >
                     <FontAwesomeIcon icon={faInfoCircle}/>
                     3 to 19 characters. <br />
                     Must begin with a letter, <br/>
