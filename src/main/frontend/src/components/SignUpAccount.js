@@ -26,7 +26,7 @@ const SignUp = () => {
     const [success, setSuccess] = useState(false);
 
     useEffect( () => {
-        userRef.focus();
+        userRef.current.focus();
     }, []);
 
     // Validate user name
@@ -53,20 +53,15 @@ const SignUp = () => {
 
     return (
         <section>
-            <p ref={errMsg} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
+            <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
             <h1>Register</h1>
             <form>
                 <label htmlFor="username"> 
                     Username:
-                    <span className={validName ? "valid" : "hide"} /* Show checkmark icon when valid or nothing when invalid */>
-                        <FontAwesomeIcon icon={faCheck}/>
-                    </span>
-
-                    <span className={validName || !userName ? "hide" : "invalid"} /* If username is valid or username is empty then hide the x mark */>
-                        <FontAwesomeIcon icon={faTimes}/>
-                    </span>
+                    
 
                 </label>
+
                 <input 
                     type="text"
                     id="username"
@@ -81,15 +76,54 @@ const SignUp = () => {
                     onBlur={() => setUserFocus(false)}
                 />
 
+                <span className={validName ? "valid" : "hide"} /* Show checkmark icon when valid or nothing when invalid */>
+                        <FontAwesomeIcon icon={faCheck}/>
+                </span>
+
+                <span className={validName || !userName ? "hide" : "invalid"} /* If username is valid or username is empty then hide the x mark */>
+                    <FontAwesomeIcon icon={faTimes}/>
+                </span>
+
                 <p id="uid" className={userFocus && userName && !validName ? "instruction" : "offscreen"}
                     // If userFocus is True and the state of userName exist and the username is invalid
                     //  then show instruction otherwise hide the instruction
                 >
                     <FontAwesomeIcon icon={faInfoCircle}/>
-                    3 to 19 characters. <br />
-                    Must begin with a letter, <br/>
+                    4 to 20 characters. <br/>
+                    Must begin with a letter. <br/>
                     Only letters and numbers allowed.
                 </p>
+
+                <label htmlFor="password"> 
+                    Password:
+                </label>
+                
+                <input 
+                    type="password"
+                    id="password"
+                    onChange={(e) => setPwd(e.target.value)}
+                    required
+                    aria-invalid={validPwd ? "false" : "true"}
+                    aria-describedby="pwdnote"
+                    onFocus={() => setUserFocus(true)}
+                    onBlur={() => setUserFocus(false)}
+                />
+
+                <span className={validPwd ? "valid" : "hide"}>
+                    <FontAwesomeIcon icon={faCheck}/>
+                </span>
+
+                <span className={validPwd || !pwd ? "hide" : "invalid"}>
+                    <FontAwesomeIcon icon={faTimes}/>
+                </span>
+                
+                <p id="pwdnote" className={pwdFocus && !validPwd ? "instruction" : "offscreen"}>
+                    <FontAwesomeIcon icon={faInfoCircle}/>
+                    4 to 20 characters. <br/>
+                    Must include uppercase and lowercase letters, a number and a special character.<br/>
+                    Allowed special characters: !, @, #, $, %
+                </p>
+
             </form>
         </section>
     )

@@ -11,6 +11,7 @@ function App() {
         <Routes>
 
           <Route exact path='/' element={<SignUp/>} />
+          <Route exact path='/imageupload' element={<UserProfiles/>} />
 
         </Routes>
       </BrowserRouter>
