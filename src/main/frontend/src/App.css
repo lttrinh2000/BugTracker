@@ -35,6 +35,34 @@ img {
   border-radius: 50%;
 }
 
+span {
+  margin-left: 10px;
+}
+
+.userName {
+  margin-right: 20px;
+}
+
+.passWord {
+  margin-right: 27px;
+}
+
+.showMark {
+  display: inline;
+}
+
+.hideMark {
+  display: none;
+}
+
+.showInstruction {
+  display: block;
+}
+
+.hideInstruction {
+  display: none;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
