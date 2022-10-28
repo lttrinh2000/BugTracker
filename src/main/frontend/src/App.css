@@ -39,12 +39,38 @@ span {
   margin-left: 10px;
 }
 
-.userName {
-  margin-right: 20px;
+section {
+  display: block;
+  margin : 0 auto;
+  font-size: 1.25em;
+  width: 450px;
+  height: auto;
+  text-align: left;
+  border-radius: 10px;
+  background-color:darkslategray;
 }
 
-.passWord {
-  margin-right: 27px;
+form {
+  padding-left: 50px;
+  padding-right: 50px;
+  padding-bottom: 50px;
+}
+
+form h1 {
+  font-size: 45px;
+  text-align: center;
+}
+
+input, button {
+  font-size: large;
+  display: block;
+  width: 350px;
+  height: 40px;
+  border-radius: 10px;
+}
+
+button {
+  height: 60px;
 }
 
 .showMark {
