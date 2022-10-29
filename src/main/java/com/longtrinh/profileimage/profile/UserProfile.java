@@ -6,12 +6,12 @@ import java.util.UUID;
 
 public class UserProfile {
     private UUID id;
-    private String userName;
+    private String emailAddress;
     private String userImageLink;
 
-    public UserProfile( UUID id, String userName, String userImage) {
+    public UserProfile( UUID id, String emailAddress, String userImage) {
         this.id = id;
-        this.userName = userName;
+        this.emailAddress = emailAddress;
         this.userImageLink = userImage;
     }
     
@@ -19,12 +19,12 @@ public class UserProfile {
         return id;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getemailAddress() {
+        return emailAddress;
     }
 
-    public void setUserName(String name) {
-        this.userName = name;
+    public void setEmailAddress(String name) {
+        this.emailAddress = name;
     }
 
     public Optional<String> getUserImageLink() {
@@ -41,12 +41,12 @@ public class UserProfile {
         if (o == null || getClass() != o.getClass()) return false;
         UserProfile that = (UserProfile) o;
         return Objects.equals(id, that.id) &&
-                Objects.equals(userName, that.userName) &&
+                Objects.equals(emailAddress, that.emailAddress) &&
                 Objects.equals(userImageLink, that.userImageLink);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, userName, userImageLink);
+        return Objects.hash(id, emailAddress, userImageLink);
     }
 }
