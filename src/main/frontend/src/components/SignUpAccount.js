@@ -1,4 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
+import axios from "axios";
 import { faCheck, faTimes, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -32,19 +33,19 @@ const SignUp = () => {
     // Validate email address
     useEffect( () => {
         const res = EMAIL_REGEX.test(emailAddress);
-        console.log("emailAddress " + res);
-        console.log(emailAddress);
+        //console.log("emailAddress " + res);
+        //console.log(emailAddress);
         setValidEmail(res);
     }, [emailAddress]);
 
     // Validate password and matching password
     useEffect( () => {
         const res = PWD_REGEX.test(pwd);
-        console.log("Password " + res);
-        console.log(pwd);
+        //console.log("Password " + res);
+        //console.log(pwd);
         setValidPwd(res);
         const match = (pwd === matchPwd);
-        console.log("Confirm pwd " + match);
+        //console.log("Confirm pwd " + match);
         setValidMatch(match);
     }, [pwd, matchPwd]);
 
@@ -62,9 +63,29 @@ const SignUp = () => {
             setErrMsg("Invalid entry");
             return;
         }
+        /*console.log("Sign up successfully: " + emailAddress + " " + pwd);
+        setSuccess(true);*/
 
-        console.log("Sign up successfully: " + emailAddress + " " + pwd);
-        setSuccess(true);
+        try {
+            const response = await axios.post("http://localhost:3001/registered", {
+                email: emailAddress,
+                password: pwd
+            });
+            console.log(response.data);
+            console.log(JSON.stringify(response));
+            setSuccess(true);
+
+        } catch(err) {
+            /*if (!err?.response) {
+                setErrMsg('No server response');
+            } else if (err.response?.status === 409) {
+                setErrMsg("Username taken");
+            } else {
+                setErrMsg("Sign up failed");
+            } */
+
+            errRef.current.focus();
+        }
     }
 
     return (

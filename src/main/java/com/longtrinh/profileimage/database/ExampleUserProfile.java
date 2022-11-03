@@ -1,4 +1,4 @@
-package com.longtrinh.profileimage.placeHolderUsers;
+package com.longtrinh.profileimage.database;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
