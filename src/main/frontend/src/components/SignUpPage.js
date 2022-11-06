@@ -103,7 +103,7 @@ const SignUp = () => {
                 
                 <form onSubmit={submitFunction}>
                     <h1>Sign Up</h1>
-                    <div>
+                    <div className="input">
                         <label htmlFor="emailAddress"> 
                             Email Address:
                         </label>
@@ -135,12 +135,11 @@ const SignUp = () => {
                             //  then show instruction otherwise hide the instruction
                         >
                             <FontAwesomeIcon icon={faInfoCircle}/>
-                            Email address is invalid. <br/>
+                            Email address is invalid.
                         </p>
-                        <br/>
                     </div>
 
-                    <div>
+                    <div className="input">
                         <label htmlFor="password"> 
                             Password:
                         </label>
@@ -170,10 +169,9 @@ const SignUp = () => {
                             Must include uppercase and lowercase letters, a number and a special character.<br/>
                             Allowed special characters: !, @, #, $, %
                         </p>
-                        <br/>
                     </div>
 
-                    <div>
+                    <div className="input">
                         <label htmlFor="matchPassword"> 
                             Confirm Password:
                         </label>
@@ -199,12 +197,13 @@ const SignUp = () => {
                         
                         <p id="matchpwdnote" className={!validMatch ? "showInstruction" : "hideInstruction"}>
                             <FontAwesomeIcon icon={faInfoCircle}/>
-                            Password doesn't match <br/>
+                            Password doesn't match
                         </p>
                     </div>
-                    <br/>
 
-                    <button disabled={ (validEmail === false || validPwd === false || validMatch === false) ? true : false}>Submit</button>
+                    <button disabled={ (validEmail === false || validPwd === false || validMatch === false) ? true : false}>
+                        Submit
+                    </button>
 
                     <p> Already registered? <br/>
                         <span>

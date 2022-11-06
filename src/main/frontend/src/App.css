@@ -50,10 +50,14 @@ section {
   background-color:darkslategray;
 }
 
+a {
+  color:cornsilk;
+}
+
 form {
   padding-left: 50px;
   padding-right: 50px;
-  padding-bottom: 50px;
+  padding-bottom: 10px;
 }
 
 form h1 {
@@ -61,7 +65,7 @@ form h1 {
   text-align: center;
 }
 
-input, button {
+input {
   font-size: large;
   display: block;
   width: 350px;
@@ -70,7 +74,13 @@ input, button {
 }
 
 button {
+  font-size: medium;
+  margin: 0 auto;
+  display: block;
   height: 60px;
+  width: 90px;
+  border-radius: 20px;
+  
 }
 
 .showMark {
@@ -82,11 +92,16 @@ button {
 }
 
 .showInstruction {
+  font-size: small;
   display: block;
 }
 
 .hideInstruction {
   display: none;
+}
+
+.input {
+  padding-bottom: 15px;
 }
 
 @keyframes App-logo-spin {
