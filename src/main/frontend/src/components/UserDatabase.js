@@ -31,3 +31,26 @@ app.post('/registered', (req, res) => {
         }
     )
 });
+
+app.post('/signin', (req, res) => {
+    const email = req.body.email;
+    const password = req.body.password;
+
+    mysql.query(
+        "SELECT * FROM users WHERE email=? AND pwd=?",
+        [email, password],
+        (err, result) => {
+            
+            try {
+                if (result) {
+                    res.send(result);
+                }
+                else {
+                    res.send({message: "Wrong email or password"});
+                }
+            } catch (error) {
+                res.send({err: err});
+            }
+        }
+    )
+});

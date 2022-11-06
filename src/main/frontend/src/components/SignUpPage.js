@@ -33,19 +33,14 @@ const SignUp = () => {
     // Validate email address
     useEffect( () => {
         const res = EMAIL_REGEX.test(emailAddress);
-        //console.log("emailAddress " + res);
-        //console.log(emailAddress);
         setValidEmail(res);
     }, [emailAddress]);
 
     // Validate password and matching password
     useEffect( () => {
         const res = PWD_REGEX.test(pwd);
-        //console.log("Password " + res);
-        //console.log(pwd);
         setValidPwd(res);
         const match = (pwd === matchPwd);
-        //console.log("Confirm pwd " + match);
         setValidMatch(match);
     }, [pwd, matchPwd]);
 
@@ -101,7 +96,7 @@ const SignUp = () => {
             <section className="registration">
                 <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
                 
-                <form onSubmit={submitFunction}>
+                <form>
                     <h1>Sign Up</h1>
                     <div className="input">
                         <label htmlFor="emailAddress"> 
@@ -201,7 +196,7 @@ const SignUp = () => {
                         </p>
                     </div>
 
-                    <button disabled={ (validEmail === false || validPwd === false || validMatch === false) ? true : false}>
+                    <button onClick={submitFunction} disabled={ (validEmail === false || validPwd === false || validMatch === false) ? true : false}>
                         Submit
                     </button>
 
