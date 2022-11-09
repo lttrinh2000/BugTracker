@@ -19,7 +19,7 @@ app.listen(3001, () => {
     console.log("Database is running");
 });
 
-app.post('/registered', (req, res) => {
+app.post('/SignUp', (req, res) => {
     const email = req.body.email;
     const password = req.body.password;
 
@@ -27,30 +27,34 @@ app.post('/registered', (req, res) => {
         "INSERT INTO users (email, pwd) VALUES (?,?)",
         [email, password],
         (err, result) => {
-            console.log(err);
+            res.send({error: err});
         }
     )
 });
 
-app.post('/signin', (req, res) => {
+app.post('/SignIn', (req, res) => {
     const email = req.body.email;
     const password = req.body.password;
 
     mysql.query(
         "SELECT * FROM users WHERE email=? AND pwd=?",
         [email, password],
-        (err, result) => {
-            
+
+        (error, result) => {
+
             try {
                 if (result) {
                     res.send(result);
                 }
                 else {
-                    res.send({message: "Wrong email or password"});
+                    res.send({message: "Wrong email or password!"});
                 }
             } catch (error) {
-                res.send({err: err});
+                res.send({err: error});
             }
         }
+
     )
+
+    
 });

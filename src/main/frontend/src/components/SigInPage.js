@@ -9,19 +9,20 @@ const SignIn = () => {
     const loginFunction = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:3001/signin', 
+            const response = await axios.post('http://localhost:3001/SignIn', 
             {
                 email: emailLogin,
                 password: pwdLogin
             });
-
+            
             if (response.data.length > 0) {
                 console.log(response.data);
                 setSignInStatus("Login Successful!");
+                window.location.href = '/imageupload';
             }
-            else
-                setSignInStatus("Wrong email or password!");
-
+            else {
+                setSignInStatus(response.data.message);
+            }
         } catch (error) {
             console.log(error);
         }

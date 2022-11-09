@@ -10,6 +10,8 @@ const SignUp = () => {
     const emailRef = useRef();
     const errRef = useRef();
 
+    const [signUpStatus, setSignUpStatus] = useState('');
+
     const [emailAddress, setEmailAddress] = useState('');
     const [validEmail, setValidEmail] = useState(false);
     const [emailFocus, setEmailFocus] = useState(false);
@@ -48,6 +50,10 @@ const SignUp = () => {
         setErrMsg('');
     }, [emailAddress, pwd, matchPwd]);
 
+    function sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
     const submitFunction = async (e) => {
         e.preventDefault();
         
@@ -62,13 +68,18 @@ const SignUp = () => {
         setSuccess(true);*/
 
         try {
-            const response = await axios.post("http://localhost:3001/registered", {
+            const response = await axios.post("http://localhost:3001/SignUp", {
                 email: emailAddress,
                 password: pwd
             });
-            console.log(response.data);
-            console.log(JSON.stringify(response));
-            setSuccess(true);
+
+            if (response.data.error) {
+                setSignUpStatus("Email already registered.");
+            } else {
+                setSignUpStatus("Sign up successfully!");
+                await sleep(2000);
+                window.location.href = '/SignIn';
+            }
 
         } catch(err) {
             /*if (!err?.response) {
@@ -83,16 +94,9 @@ const SignUp = () => {
         }
     }
 
+
     return (
         <>
-        {success === true ? (
-            <section>
-                <h1>Sign up successfully!</h1>
-                <p>
-                    <a href="/SignIn">Sign In</a>
-                </p>
-            </section>
-        ) : (
             <section className="registration">
                 <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
                 
@@ -200,6 +204,8 @@ const SignUp = () => {
                         Submit
                     </button>
 
+                    <p>{signUpStatus}</p>
+
                     <p> Already registered? <br/>
                         <span>
                             <a href="/SignIn">Sign In</a>
@@ -207,7 +213,6 @@ const SignUp = () => {
                     </p>
                 </form>
             </section> 
-        )}
         </>
     )
 }
